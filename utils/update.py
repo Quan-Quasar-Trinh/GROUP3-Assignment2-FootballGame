@@ -6,18 +6,19 @@ def update_players(TeamA_Players, TeamB_Players):
     keys = pygame.key.get_pressed()
     for player in TeamA_Players:
         if player.controlled:
+            player.velocity = (0, 0)  # Reset velocity each frame
             if keys[pygame.K_w]:
                 player.position = (player.position[0], player.position[1] - player.speed)
-                player.velocity = (0, -player.speed)
+                player.velocity = (player.velocity[0], player.velocity[1] -player.speed)
             if keys[pygame.K_s]:
                 player.position = (player.position[0], player.position[1] + player.speed)
-                player.velocity = (0, player.speed)
+                player.velocity = (player.velocity[0], player.velocity[1] + player.speed)
             if keys[pygame.K_a]:
                 player.position = (player.position[0] - player.speed, player.position[1])
-                player.velocity = (-player.speed, 0)
+                player.velocity = (player.velocity[0] - player.speed, player.velocity[1])
             if keys[pygame.K_d]:
                 player.position = (player.position[0] + player.speed, player.position[1])
-                player.velocity = (player.speed, 0)
+                player.velocity = (player.velocity[0] + player.speed, player.velocity[1])
         else:
             botMove()
                 
@@ -48,7 +49,7 @@ def update_controlled(Team_Players):
             Team_Players[next_index].controlled = True
             break
         
-def update_ball(ball):
+def update_ball(ball, TeamA_Players, TeamB_Players):
     if ball.position[0] < 10:
         ball.position = (10, ball.position[1])
         ball.velocity = (-ball.velocity[0], ball.velocity[1])
@@ -61,6 +62,12 @@ def update_ball(ball):
     if ball.position[1] > 790:
         ball.position = (ball.position[0], 790)
         ball.velocity = (ball.velocity[0], -ball.velocity[1])
+    
+    if ball.velocity[0]**2 + ball.velocity[1]**2 < 0.1:
+        ball.velocity = (0, 0)
+        
+    ball.collision(TeamA_Players + TeamB_Players)
+        
     if ball:
         ball.update()
     

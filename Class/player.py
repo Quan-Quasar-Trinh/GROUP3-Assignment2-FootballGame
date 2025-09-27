@@ -13,7 +13,7 @@ class Player:
         self.num = num
         self.position = position  # position is a tuple (x, y)
         self.velocity = (0, 0)  # velocity is a tuple (vx, vy)
-        self.speed = 5  # default speed
+        self.speed = 8  # default speed
         self.controlled = controlled  # whether the player is controlled by user
         self.hitbox = Hitbox(hitbox.Pos, hitbox.radius)  # placeholder for hitbox, if needed
          # Draw hitbox as a red circle    

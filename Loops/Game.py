@@ -42,7 +42,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH,
                     update_controlled(TeamB_Players)
                 
         update_players(TeamA_Players, TeamB_Players)
-        update_ball(ball[0])
+        update_ball(ball[0], TeamA_Players, TeamB_Players)
 
         
                 
