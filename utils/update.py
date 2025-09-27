@@ -47,3 +47,20 @@ def update_controlled(Team_Players):
             next_index = (Team_Players.index(player) + 1) % len(Team_Players)
             Team_Players[next_index].controlled = True
             break
+        
+def update_ball(ball):
+    if ball.position[0] < 10:
+        ball.position = (10, ball.position[1])
+        ball.velocity = (-ball.velocity[0], ball.velocity[1])
+    if ball.position[0] > 1390:
+        ball.position = (1390, ball.position[1])
+        ball.velocity = (-ball.velocity[0], ball.velocity[1])
+    if ball.position[1] < 100:
+        ball.position = (ball.position[0], 100)
+        ball.velocity = (ball.velocity[0], -ball.velocity[1])
+    if ball.position[1] > 790:
+        ball.position = (ball.position[0], 790)
+        ball.velocity = (ball.velocity[0], -ball.velocity[1])
+    if ball:
+        ball.update()
+    

@@ -6,6 +6,7 @@ from utils.draw import draw_field
 from utils.draw import drawScore
 from utils.update import update_players
 from utils.update import update_controlled
+from utils.update import update_ball
 
 
 
@@ -41,7 +42,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH,
                     update_controlled(TeamB_Players)
                 
         update_players(TeamA_Players, TeamB_Players)
-                
+        update_ball(ball[0])
 
         
                 
