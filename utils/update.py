@@ -19,6 +19,14 @@ def update_players(TeamA_Players, TeamB_Players):
             if keys[pygame.K_d]:
                 player.position = (player.position[0] + player.speed, player.position[1])
                 player.velocity = (player.velocity[0] + player.speed, player.velocity[1])
+            if player.position[0] < 0:
+                player.position = (0, player.position[1])
+            if player.position[0] > 1400:
+                player.position = (1400, player.position[1])
+            if player.position[1] < 100:
+                player.position = (player.position[0], 100)
+            if player.position[1] > 800:
+                player.position = (player.position[0], 800)
         else:
             botMove()
                 
