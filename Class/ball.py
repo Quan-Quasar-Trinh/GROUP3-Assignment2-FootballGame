@@ -31,7 +31,7 @@ class Ball:
             distance = (dx**2 + dy**2) ** 0.5
             if distance < 45 + 15:  
                 self.velocity = (dx / distance * 20 + player.velocity[0], dy / distance * 20+player.velocity[1])
-                self.last_touch = player  # Update last player who touched the ball
+                self.last_touch = player  # Update last player who touched the 
                 
     def draw(self, surface):
         pygame.draw.circle(surface, (255, 255, 0), self.position, 15)  # Draw ball as a yellow circle    

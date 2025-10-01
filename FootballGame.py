@@ -23,13 +23,14 @@ WHITE = (255, 255, 255)
 BALL_COLOR = (255, 255, 0)  # Yellow
 BALL_RADIUS = 15
 
-GOAL_COLOR = (255, 0, 0)  # Red
+LEFT_GOAL_COLOR = (0, 0, 255) # Blue
+RIGHT_GOAL_COLOR = (255, 0, 0) # Red
 GOAL_WIDTH = 200
 
 
 running = True
 while running:
     menu(screen)
-    game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH, running)
+    game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running)
     
 

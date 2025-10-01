@@ -1,19 +1,26 @@
 import pygame
 import sys
+
+from Class.goal import *
+
 from utils.spawn import Spawn_Players
 from utils.spawn import Spawn_Ball
 from utils.draw import draw_field
 from utils.draw import drawScore
+
 from utils.update import update_players
 from utils.update import update_controlled
 from utils.update import update_ball
+# from utils.update import update_goaled_A
+# from utils.update import update_goaled_B
 
 
 
 
+GOAL_A_EVENT = pygame.USEREVENT + 1
+GOAL_B_EVENT = pygame.USEREVENT + 1
 
-
-def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH, running):
+def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running):
     game_running = True
     TeamA_Players = []
     TeamB_Players = []
@@ -23,7 +30,6 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH,
     
     Spawn_Players(TeamA_Players, TeamB_Players)
     Spawn_Ball(ball)
-    
     
     while game_running:
         for event in pygame.event.get():
@@ -40,6 +46,10 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH,
                     update_controlled(TeamA_Players)
                 if event.key == pygame.K_KP0:
                     update_controlled(TeamB_Players)
+            if GOAL_A_EVENT:
+                # update_goaled_A(ball, goal)
+                pass
+                
                 
         update_players(TeamA_Players, TeamB_Players)
         update_ball(ball[0], TeamA_Players, TeamB_Players)
@@ -51,7 +61,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH,
 
         screen.fill(FIELD_COLOR)
 
-        draw_field(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, GOAL_COLOR, GOAL_WIDTH)
+        draw_field(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH)
         # Draw scores
         
         # Draw players

@@ -1,6 +1,8 @@
 import pygame
 from Class.player import Hitbox
+from Class.ball import *
 from utils.botMove import botMove
+from utils.draw import draw_field
 
 def update_players(TeamA_Players, TeamB_Players):
     keys = pygame.key.get_pressed()
@@ -78,4 +80,9 @@ def update_ball(ball, TeamA_Players, TeamB_Players):
         
     if ball:
         ball.update()
+        
+def update_goaled_A(ball, goal):
+    if goal.goaled(ball):
+        pass
+        
     
