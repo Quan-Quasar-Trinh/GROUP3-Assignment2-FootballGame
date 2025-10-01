@@ -28,8 +28,8 @@ def draw_field(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT
     # pygame.draw.rect(screen, GOAL_COLOR,
     #                 (WIDTH - 10, FIELD_TOP + (FIELD_HEIGHT - GOAL_WIDTH) // 2, 10, GOAL_WIDTH))  # `Right goal
     
-    left_goal = LeftGoal(FIELD_TOP, FIELD_HEIGHT, GOAL_WIDTH, LEFT_GOAL_COLOR)
-    right_goal = RightGoal(FIELD_TOP, FIELD_HEIGHT, WIDTH, GOAL_WIDTH, RIGHT_GOAL_COLOR)
+    # left_goal = LeftGoal(FIELD_TOP, FIELD_HEIGHT, GOAL_WIDTH, LEFT_GOAL_COLOR)
+    # right_goal = RightGoal(FIELD_TOP, FIELD_HEIGHT, WIDTH, GOAL_WIDTH, RIGHT_GOAL_COLOR)
     
     left_goal.draw(screen)
     right_goal.draw(screen)

@@ -5,6 +5,7 @@ from Class.goal import *
 
 from utils.spawn import Spawn_Players
 from utils.spawn import Spawn_Ball
+
 from utils.draw import draw_field
 from utils.draw import drawScore
 
@@ -17,8 +18,23 @@ from utils.update import update_ball
 
 
 
-GOAL_A_EVENT = pygame.USEREVENT + 1
-GOAL_B_EVENT = pygame.USEREVENT + 1
+# GOAL_A_EVENT = pygame.USEREVENT + 1
+# GOAL_B_EVENT = pygame.USEREVENT + 1
+
+def show_goal_screen(screen, width, height, team, scorer):
+    screen.fill((0, 180, 0))
+
+    font_big = pygame.font.Font(None, 120)
+    font_small = pygame.font.Font(None, 60)
+
+    goal_text = font_big.render(f"GOAL for Team {team}!", True, (255, 255, 255))
+    scorer_text = font_small.render(f"Scorer: {scorer.num if scorer else 'Unknown'}", True, (255, 255, 255))
+
+    # Center text
+    screen.blit(goal_text, (width//2 - goal_text.get_width()//2, height//2 - 100))
+    screen.blit(scorer_text, (width//2 - scorer_text.get_width()//2, height//2 + 20))
+
+    pygame.display.flip()
 
 def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running):
     game_running = True
@@ -45,19 +61,11 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
                 if event.key == pygame.K_q:
                     update_controlled(TeamA_Players)
                 if event.key == pygame.K_KP0:
-                    update_controlled(TeamB_Players)
-            if GOAL_A_EVENT:
-                # update_goaled_A(ball, goal)
-                pass
-                
+                    update_controlled(TeamB_Players)            
                 
         update_players(TeamA_Players, TeamB_Players)
         update_ball(ball[0], TeamA_Players, TeamB_Players)
 
-        
-                
-                
-                
 
         screen.fill(FIELD_COLOR)
 
@@ -71,7 +79,38 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
         # Draw ball
         if ball:
             ball[0].draw(screen)
-
+            
+        # Goal A - Score for B
+        if left_goal.goaled(ball[0]):
+            start_time = pygame.time.get_ticks() # save current time stamp
+            while pygame.time.get_ticks() - start_time < 1500:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                show_goal_screen(screen, WIDTH, HEIGHT, "B", ball[0].last_touch)
+                            
+            ScoreB += 1
+        
+            # respawn
+            Spawn_Players(TeamA_Players, TeamB_Players)
+            Spawn_Ball(ball)
+        
+        # Goal B - Score for A
+        if right_goal.goaled(ball[0]):
+            start_time = pygame.time.get_ticks() # save current time stamp
+            while pygame.time.get_ticks() - start_time < 1500:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                show_goal_screen(screen, WIDTH, HEIGHT, "A", ball[0].last_touch)
+                            
+            ScoreA += 1
+        
+            # respawn
+            Spawn_Players(TeamA_Players, TeamB_Players)
+            Spawn_Ball(ball)
 
         drawScore(screen, WIDTH, ScoreA, ScoreB)
         pygame.display.flip()

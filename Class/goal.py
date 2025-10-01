@@ -10,7 +10,8 @@ class Goal:
         pygame.draw.rect(screen, self.color, self.rect)
         
     def goaled(self, ball):
-        ball_x, ball_y = ball.position
+        ball_x = ball.position[0]
+        ball_y = ball.position[1]
         r = 15
 
         # Clamp circle center to rectangle edges
@@ -34,3 +35,13 @@ class RightGoal(Goal):
         x = field_width - 10
         y = field_top + (field_height - goal_width) // 2
         super().__init__(x, y, 10, goal_width, color, "right")
+
+LEFT_GOAL_COLOR = (0, 0, 255) # Blue
+RIGHT_GOAL_COLOR = (255, 0, 0) # Red
+GOAL_WIDTH = 200
+WIDTH, HEIGHT = 1400, 800
+HUD_HEIGHT = 100
+FIELD_TOP = HUD_HEIGHT
+FIELD_HEIGHT = HEIGHT - HUD_HEIGHT
+left_goal = LeftGoal(FIELD_TOP, FIELD_HEIGHT, GOAL_WIDTH, LEFT_GOAL_COLOR)
+right_goal = RightGoal(FIELD_TOP, FIELD_HEIGHT, WIDTH, GOAL_WIDTH, RIGHT_GOAL_COLOR)

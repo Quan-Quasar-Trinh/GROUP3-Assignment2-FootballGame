@@ -1,7 +1,5 @@
 import pygame
 
-
-
 class Hitbox:
     def __init__(self, Pos, radius):
         self.Pos = Pos

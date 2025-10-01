@@ -5,6 +5,9 @@ import pygame
 
 
 def Spawn_Players(TeamA_Players, TeamB_Players):
+    TeamA_Players.clear()
+    TeamB_Players.clear()
+    
     # Spawn players for Team A
     for i in range(1,4):
         position = (100, i * 150)  # Example positions
@@ -19,4 +22,5 @@ def Spawn_Players(TeamA_Players, TeamB_Players):
     TeamB_Players[0].controlled = True  # Make the first player of Team B controlled by user
         
 def Spawn_Ball(ball):
-    ball.append( Ball((700, 450), (10, 20)))  # Spawn ball at center with no initial velocity
+    ball.clear()
+    ball.append(Ball((700, 450), (0, 0)))  # Spawn ball at center with no initial velocity

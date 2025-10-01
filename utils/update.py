@@ -3,6 +3,7 @@ from Class.player import Hitbox
 from Class.ball import *
 from utils.botMove import botMove
 from utils.draw import draw_field
+from utils.spawn import *
 
 def update_players(TeamA_Players, TeamB_Players):
     keys = pygame.key.get_pressed()
@@ -81,8 +82,20 @@ def update_ball(ball, TeamA_Players, TeamB_Players):
     if ball:
         ball.update()
         
-def update_goaled_A(ball, goal):
-    if goal.goaled(ball):
-        pass
+def show_goal_screen(screen, width, height, team, scorer):
+    screen.fill((0, 180, 0))
+
+    font_big = pygame.font.Font(None, 120)
+    font_small = pygame.font.Font(None, 60)
+
+    goal_text = font_big.render(f"GOAL for Team {team}!", True, (255, 255, 255))
+    scorer_text = font_small.render(f"Scorer: {scorer.name if scorer else 'Unknown'}", True, (255, 255, 255))
+
+    # Center text
+    screen.blit(goal_text, (width//2 - goal_text.get_width()//2, height//2 - 100))
+    screen.blit(scorer_text, (width//2 - scorer_text.get_width()//2, height//2 + 20))
+
+    pygame.display.flip()
+
         
     
