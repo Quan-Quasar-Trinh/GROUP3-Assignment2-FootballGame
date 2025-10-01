@@ -5,6 +5,7 @@ import pygame
 
 
 def Spawn_Players(TeamA_Players, TeamB_Players):
+    # Clear spawn stacks
     TeamA_Players.clear()
     TeamB_Players.clear()
     
@@ -22,5 +23,5 @@ def Spawn_Players(TeamA_Players, TeamB_Players):
     TeamB_Players[0].controlled = True  # Make the first player of Team B controlled by user
         
 def Spawn_Ball(ball):
-    ball.clear()
+    ball.clear() # Clear spawn stack
     ball.append(Ball((700, 450), (0, 0)))  # Spawn ball at center with no initial velocity

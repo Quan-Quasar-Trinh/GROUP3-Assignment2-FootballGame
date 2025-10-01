@@ -47,6 +47,10 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
     Spawn_Players(TeamA_Players, TeamB_Players)
     Spawn_Ball(ball)
     
+    start_ticks = pygame.time.get_ticks()   # save starting time
+    game_time = 90                          # 90 seconds
+    font_timer = pygame.font.Font(None, 40) # font
+    
     while game_running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -66,6 +70,11 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
         update_players(TeamA_Players, TeamB_Players)
         update_ball(ball[0], TeamA_Players, TeamB_Players)
 
+        # Timer
+        seconds_passed = (pygame.time.get_ticks() - start_ticks) // 1000
+        time_left = max(0, game_time - seconds_passed)
+        if time_left <= 0:
+            game_running = False   # End game when timer hits 0
 
         screen.fill(FIELD_COLOR)
 
@@ -111,7 +120,12 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
             # respawn
             Spawn_Players(TeamA_Players, TeamB_Players)
             Spawn_Ball(ball)
-
+        
         drawScore(screen, WIDTH, ScoreA, ScoreB)
+        
+        # Draw timer at top center
+        timer_text = font_timer.render(f"Time: {time_left}", True, (255,255,255))
+        screen.blit(timer_text, (WIDTH//2 - timer_text.get_width()//2, 20))
+        
         pygame.display.flip()
         pygame.time.delay(30)
