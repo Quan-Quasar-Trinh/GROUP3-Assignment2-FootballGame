@@ -5,6 +5,7 @@ import time
 import os   # to check if image exists
 from Class.player import Player
 from Class.ball import Ball
+from Class.goal import *
 from Loops.Menu import menu
 from Loops.Game import game_loop
 

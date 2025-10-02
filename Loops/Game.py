@@ -28,13 +28,35 @@ def show_goal_screen(screen, width, height, team, scorer):
     font_small = pygame.font.Font(None, 60)
 
     goal_text = font_big.render(f"GOAL for Team {team}!", True, (255, 255, 255))
-    scorer_text = font_small.render(f"Scorer: {scorer.num if scorer else 'Unknown'}", True, (255, 255, 255))
+    if scorer.team == team:
+        scorer_text = font_small.render(f"Scorer: {scorer.num if scorer else 'Unknown'}", True, (255, 255, 255))
+    else:
+        scorer_text = font_small.render(f"Own Goal: {scorer.num if scorer else 'Unknown'}", True, (255, 255, 255))
 
     # Center text
     screen.blit(goal_text, (width//2 - goal_text.get_width()//2, height//2 - 100))
     screen.blit(scorer_text, (width//2 - scorer_text.get_width()//2, height//2 + 20))
 
     pygame.display.flip()
+
+def show_winner_screen(screen, width, height, ScoreA, ScoreB):
+    screen.fill((0, 180, 0))
+    font_big = pygame.font.Font(None, 120)
+    font_small = pygame.font.Font(None, 60)
+    score_text = font_big.render(f"Team A: {ScoreA}               Team B: {ScoreB}", True, (255, 255, 255))
+    if ScoreA > ScoreB:
+        winner = font_small.render(f"Team A is the winner!", True, (255, 255, 255))
+    elif ScoreA < ScoreB:
+        winner = font_small.render(f"Team B is the winner!", True, (255, 255, 255))
+    else:
+        winner = font_small.render(f"Tie!", True, (255, 255, 255))
+
+    stop_showing_winner_screen = font_small.render(f"(Press any key to return main menu)", True, (255, 255, 255))
+    
+    screen.blit(score_text, (width//2 - score_text.get_width()//2, height//2 - 100))
+    screen.blit(winner, (width//2 - winner.get_width()//2, height//2 + 20))
+    screen.blit(stop_showing_winner_screen, (width//2 - stop_showing_winner_screen.get_width()//2, height//2 + 140))
+    
 
 def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running):
     game_running = True
@@ -74,7 +96,20 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
         seconds_passed = (pygame.time.get_ticks() - start_ticks) // 1000
         time_left = max(0, game_time - seconds_passed)
         if time_left <= 0:
-            game_running = False   # End game when timer hits 0
+            show_winner_screen(screen, WIDTH, HEIGHT, ScoreA, ScoreB)
+            pygame.display.flip()
+
+            waiting = True
+            while waiting:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    if event.type == pygame.KEYDOWN:   # any key ends the winner screen
+                        waiting = False
+                        
+            game_running = False
+            return
 
         screen.fill(FIELD_COLOR)
 
