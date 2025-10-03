@@ -16,8 +16,9 @@ class Player:
         self.speed = 8  # default speed
         self.controlled = controlled  # whether the player is controlled by user
         self.hitbox = Hitbox(hitbox.Pos, hitbox.radius)  # placeholder for hitbox, if needed
-         # Draw hitbox as a red circle    
-        
+         # Draw hitbox as a red circle   
+        self.ball_cooldown = 0  # Cooldown timer for ball interaction 
+        self.last_touch_time = None  # Track last time player touched the ball
     def draw(self, surface):
         color = (0, 0, 255) if self.team == "A" else (255, 0, 0)
         pygame.draw.circle(surface, color, self.position, 45)
@@ -25,3 +26,11 @@ class Player:
         text = font.render(str(self.num), True, (255, 255, 255))
         text_rect = text.get_rect(center=self.position)
         surface.blit(text, text_rect)
+        pos = (int(self.position[0]), int(self.position[1]))
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_TAB]:
+            cd_value = self.ball_cooldown
+            last_touch = self.last_touch_time
+            info_text = font.render(f"CD: {cd_value}  LTT: {last_touch} Pos: {pos}", True, (255, 255, 0))
+            info_rect = info_text.get_rect(midleft=(pos[0] + 55, pos[1]))
+            surface.blit(info_text, info_rect)
