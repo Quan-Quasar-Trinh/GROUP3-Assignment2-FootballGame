@@ -5,7 +5,7 @@ from utils.botMove import botMove
 from utils.draw import draw_field
 from utils.spawn import *
 
-def update_players(TeamA_Players, TeamB_Players):
+def update_players(TeamA_Players, TeamB_Players, ball):
     keys = pygame.key.get_pressed()
     for player in TeamA_Players:
         if player.controlled:
@@ -31,7 +31,7 @@ def update_players(TeamA_Players, TeamB_Players):
             if player.position[1] > 800:
                 player.position = (player.position[0], 800)
         else:
-            botMove()
+            botMove(player, ball)
                 
     for player in TeamB_Players:
         if player.controlled:
@@ -46,7 +46,9 @@ def update_players(TeamA_Players, TeamB_Players):
                 player.velocity = (-player.speed, 0)
             if keys[pygame.K_RIGHT]:
                 player.position = (player.position[0] + player.speed, player.position[1])
-                player.velocity = (player.speed, 0)
+                player.velocity = (player.speed, 0)           
+        else:
+            botMove(player, ball)
     for player in TeamA_Players + TeamB_Players:
         if player.hitbox:
             player.hitbox.update(player.position)

@@ -89,7 +89,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
                 if event.key == pygame.K_KP0:
                     update_controlled(TeamB_Players)            
                 
-        update_players(TeamA_Players, TeamB_Players)
+        update_players(TeamA_Players, TeamB_Players, ball[0])
         update_ball(ball[0], TeamA_Players, TeamB_Players)
 
         # Timer
