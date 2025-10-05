@@ -58,7 +58,7 @@ def show_winner_screen(screen, width, height, ScoreA, ScoreB):
     screen.blit(stop_showing_winner_screen, (width//2 - stop_showing_winner_screen.get_width()//2, height//2 + 140))
     
 
-def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running):
+def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running, is_pvp):
     game_running = True
     TeamA_Players = []
     TeamB_Players = []
@@ -66,7 +66,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
     ScoreA = 0
     ScoreB = 0
     
-    Spawn_Players(TeamA_Players, TeamB_Players)
+    Spawn_Players(TeamA_Players, TeamB_Players, is_pvp)
     Spawn_Ball(ball)
     
     start_ticks = pygame.time.get_ticks()   # save starting time
@@ -137,7 +137,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
             ScoreB += 1
         
             # respawn
-            Spawn_Players(TeamA_Players, TeamB_Players)
+            Spawn_Players(TeamA_Players, TeamB_Players, is_pvp)
             Spawn_Ball(ball)
         
         # Goal B - Score for A
@@ -153,7 +153,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
             ScoreA += 1
         
             # respawn
-            Spawn_Players(TeamA_Players, TeamB_Players)
+            Spawn_Players(TeamA_Players, TeamB_Players, is_pvp)
             Spawn_Ball(ball)
         
         drawScore(screen, WIDTH, ScoreA, ScoreB)

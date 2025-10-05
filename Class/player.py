@@ -21,7 +21,18 @@ class Player:
         self.last_touch_time = None  # Track last time player touched the ball
     def draw(self, surface):
         color = (0, 0, 255) if self.team == "A" else (255, 0, 0)
+        
         pygame.draw.circle(surface, color, self.position, 45)
+        if self.controlled:
+            x, y = self.position
+            radius = 45
+            triangle_height = 30
+            triangle_width = 20
+            # 3 đỉnh của tam giác (chỉ xuống)
+            point1 = (x, y - radius)        # đỉnh dưới
+            point2 = (x - triangle_width // 2, y - radius- triangle_height)    # góc trái
+            point3 = (x + triangle_width // 2, y - radius- triangle_height)    # góc phải
+            pygame.draw.polygon(surface, (255, 255, 0), [point1, point2, point3])
         font = pygame.font.Font(None, 24)
         text = font.render(str(self.num), True, (255, 255, 255))
         text_rect = text.get_rect(center=self.position)

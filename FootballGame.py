@@ -8,6 +8,7 @@ from Class.ball import Ball
 from Class.goal import *
 from Loops.Menu import menu
 from Loops.Game import game_loop
+from Loops.chooseMode import choose_mode
 
 # Initialize pygame
 pygame.init()
@@ -32,6 +33,7 @@ GOAL_WIDTH = 200
 running = True
 while running:
     menu(screen)
-    game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running)
+    is_pvp = choose_mode()
+    game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running, is_pvp)
     
 

@@ -36,7 +36,7 @@ def botMove(player, ball):
         base_x_fwd = 400
         push_offset = 50
         defend_zone_max = 466.67
-        push_target_x = min(1400, max(0, ball.position[0] + push_offset))
+        push_target_x =  min(1400, max(0, ball.position[0] + push_offset))
     else:
         base_x_def = 1166.67
         base_x_fwd = 1000
@@ -44,11 +44,11 @@ def botMove(player, ball):
         defend_zone_max = 466.67
         push_target_x = min(1400, max(0, ball.position[0] - push_offset))
 
-    if player.num == 1:
-        original_pos = (base_x_def, 250)
+    if player.num == 3:
+        original_pos = (base_x_def, 600)
     elif player.num == 2:
-        original_pos = (base_x_def, 650)
-    elif player.num == 3:
+        original_pos = (base_x_def, 300)
+    elif player.num == 1:
         original_pos = (base_x_fwd, 450)
     else:
         return
@@ -60,9 +60,9 @@ def botMove(player, ball):
     buffer = 10
     in_def_half = ball_x <= defend_zone_max + buffer if team == "A" else ball_x >= (1400 - defend_zone_max - buffer)
 
-    if player.num == 1:
+    if player.num == 2:
         in_my_area = ball_y <= 450 + buffer
-    elif player.num == 2:
+    elif player.num == 3:
         in_my_area = ball_y > 450 - buffer
     else:
         in_my_area = False
