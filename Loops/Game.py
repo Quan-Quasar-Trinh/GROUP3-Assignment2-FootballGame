@@ -70,9 +70,18 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
     Spawn_Ball(ball)
     
     start_ticks = pygame.time.get_ticks()   # save starting time
-    game_time = 90                          # 90 seconds
+    game_time = 90                      # 90 seconds
     font_timer = pygame.font.Font(None, 40) # font
+    pygame.mixer.init()
+
+# Load background music (looped)
+    pygame.mixer.music.load("media/Audios/football-crowd-3-69245.mp3")  # <-- replace with your file
+    pygame.mixer.music.set_volume(0.6)
+    pygame.mixer.music.play(-1)
     
+    background = pygame.image.load("media/Images/grass.webp")  # <-- replace with your file
+    background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+
     while game_running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,7 +107,9 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
         if time_left <= 0:
             show_winner_screen(screen, WIDTH, HEIGHT, ScoreA, ScoreB)
             pygame.display.flip()
-
+            whish = pygame.mixer.Sound("media/Audios/match_end.wav")
+            whish.set_volume(0.3)
+            whish.play()
             waiting = True
             while waiting:
                 for event in pygame.event.get():
@@ -111,7 +122,7 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
             game_running = False
             return
 
-        screen.fill(FIELD_COLOR)
+        screen.blit(background, (0, 0))
 
         draw_field(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH)
         # Draw scores
@@ -127,13 +138,17 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
         # Goal A - Score for B
         if left_goal.goaled(ball[0]):
             start_time = pygame.time.get_ticks() # save current time stamp
+            cheer = pygame.mixer.Sound("media/Audios/cheering-crowd-406645.mp3")
+            cheer.set_volume(0.2)
+            cheer.play()
+                            
             while pygame.time.get_ticks() - start_time < 1500:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         exit()
-                show_goal_screen(screen, WIDTH, HEIGHT, "B", ball[0].last_touch)
-                            
+            show_goal_screen(screen, WIDTH, HEIGHT, "B", ball[0].last_touch)
+            
             ScoreB += 1
         
             # respawn
@@ -143,12 +158,16 @@ def game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_
         # Goal B - Score for A
         if right_goal.goaled(ball[0]):
             start_time = pygame.time.get_ticks() # save current time stamp
+            cheer = pygame.mixer.Sound("media/Audios/cheering-crowd-406645.mp3")
+            cheer.set_volume(0.2)
+            cheer.play()
             while pygame.time.get_ticks() - start_time < 1500:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         exit()
                 show_goal_screen(screen, WIDTH, HEIGHT, "A", ball[0].last_touch)
+            
                             
             ScoreA += 1
         

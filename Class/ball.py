@@ -29,7 +29,7 @@ class Ball:
             dx = self.position[0] - player.position[0]
             dy = self.position[1] - player.position[1]
             distance = (dx**2 + dy**2) ** 0.5
-            if distance < 45 + 15 and player.ball_cooldown == 0:
+            if distance < player.hitbox.radius + self.hitbox.radius and player.ball_cooldown == 0:
                 # self.velocity = (dx / distance * 20 + player.velocity[0], dy / distance * 20 + player.velocity[1])
                 self.velocity = (dx / distance * 10 + player.velocity[0], dy / distance * 10 + player.velocity[1])
                 self.last_touch = player  # Update last player who touched the ball

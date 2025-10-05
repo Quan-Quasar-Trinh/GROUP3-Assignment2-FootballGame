@@ -21,7 +21,7 @@ def idle_behavior(player, original_pos):
         move_toward(player, original_pos)
     else:
         rx = random.uniform(-2, 2)
-        ry = random.uniform(-2, 2)
+        ry = 0
         player.position = (player.position[0] + rx, player.position[1] + ry)
         player.velocity = (rx, ry)
 

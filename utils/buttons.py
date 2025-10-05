@@ -7,7 +7,9 @@ class Button:
         self.color = (0, 200, 0)
 
     def draw(self, surface):
+        
         pygame.draw.rect(surface, self.color, self.rect)
+        pygame.draw.rect(surface, (255, 255, 255), self.rect, 3)
         label = pygame.font.Font(None, 50).render(self.text, True, (255, 255, 255))
         label_rect = label.get_rect(center=self.rect.center)
         surface.blit(label, label_rect)

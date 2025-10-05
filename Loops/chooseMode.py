@@ -15,8 +15,11 @@ def choose_mode():
     pvp = Button("PVP", (WIDTH//2 - 100, HEIGHT//2 - 50), (200, 50))
     pve = Button("PVE", (WIDTH//2 - 100, HEIGHT//2 + 10), (200, 50))
     
+    
+    background = pygame.image.load("media/Images/menu.jpg")  # <-- replace with your file
+    background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     while True:
-        screen.fill((0, 100, 0))
+        screen.blit(background, (0, 0))
         screen.blit(text, (WIDTH//2 - text.get_width()//2, HEIGHT//2 - 100))
         pvp.draw(screen)
         pve.draw(screen)

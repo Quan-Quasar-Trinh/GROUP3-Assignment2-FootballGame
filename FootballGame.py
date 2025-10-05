@@ -34,6 +34,7 @@ running = True
 while running:
     menu(screen)
     is_pvp = choose_mode()
+    pygame.mixer.music.stop()
     game_loop(screen, WIDTH, HEIGHT, FIELD_COLOR, WHITE, LEFT_GOAL_COLOR, RIGHT_GOAL_COLOR, GOAL_WIDTH, running, is_pvp)
     
 

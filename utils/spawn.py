@@ -14,7 +14,7 @@ def Spawn_Players(TeamA_Players, TeamB_Players, is_pvp=False):
         if i == 1:
             position = (400, 450)
         else:
-            position = (200, 300 + (i-2)*300)  # Example positions
+            position = (200, 250 + 400*(i-2))  # Example positions
         player = Player("A", i, position, controlled=False, hitbox=Hitbox(position, 45))
         TeamA_Players.append(player)
     TeamA_Players[0].controlled = True  # Make the first player of Team A controlled by user
@@ -23,7 +23,7 @@ def Spawn_Players(TeamA_Players, TeamB_Players, is_pvp=False):
         if i == 1:
             position = (1000, 450)
         else:
-            position = (1200, 300 + (i-2)*300)  # Example positions
+            position = (1200, 250 + 400*(i-2))  # Example positions
         player = Player("B", i, position, controlled=False, hitbox=Hitbox(position, 45))
         TeamB_Players.append(player)
     if is_pvp:
